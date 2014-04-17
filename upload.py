@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import urllib, urllib2, cookielib, poster
 import sys
 import os
