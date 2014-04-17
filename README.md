@@ -1,7 +1,7 @@
-torrent-flux-watcher
+Torrent Flux watcher
 ====================
 
-Torrent Flux watcher
+1. edit conf.py to add your username, password, and server's URL
+2. place your torrent files in the watch directory
+3. run upload.py
 
-Based on: https://github.com/mastergreg/tflux
-Unfortunately, this library was no longer maintained and the 'API' for torrentflux has been changed.
