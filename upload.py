@@ -34,9 +34,14 @@ def main():
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
     for f in files:
       if(f.lower().find('.torrent') != -1):
-        print 'uploading: ' + f + '\n ...'
+        print 'uploading: ' + f + '...'
         myform = {"upload_file" : open(f, "rb")}
         resp = opener.open('https://'+address+'/index.php', myform)
+        result = resp.read()
+        if(result.lower().find(f) != -1):
+          print "error cannot upload file: " + f
+        else:
+          os.remove(f)
       else:
         print 'file: ' + f + '\nnot a torrent file, skipping...'
 
