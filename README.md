@@ -14,5 +14,4 @@ This python script will upload all your torrent files to your torrentflux server
 
 ```
 pip install poster
-...
 ```
