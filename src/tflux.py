@@ -18,27 +18,29 @@ class tflux:
               self.username = user
               self.password = passw
               self.address = add
-
-    def login(self):
               register_openers()
               cookie_jar = cookielib.CookieJar()
-              opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie_jar), MultipartPostHandler.MultipartPostHandler)
+              self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie_jar), MultipartPostHandler.MultipartPostHandler)
+
+    def login(self):
               login_data = urllib.urlencode({'username' : self.username, 'iamhim' : self.password})
-              resp = opener.open('https://'+self.address+'/login.php', login_data)
+              resp = self.opener.open('https://'+self.address+'/login.php', login_data)
               result = resp.read()
 
               if(result.lower().find('fail') != -1):
-                  print 'Error logging in to torrent flux, password/username error'
+                  print 'Error logging in to torrent flux, password/username error' + self.username + ":" + self.password + "@" + self.address 
 
     def upload_dir(self,directory):
               os.chdir(directory)
               files = [f for f in os.listdir('.') if os.path.isfile(f)]
-              for f in files:
+	      for f in files:
                     if(f.lower().find('.torrent') != -1):
                         print 'uploading: ' + f + '...'
-                        myform = {"upload_file" : open(f, "rb")}
-                        resp = opener.open('https://'+self.address+'/index.php', myform)
+			file = open(f, 'rb')
+                        myform = {"upload_file" : file}
+                        resp = self.opener.open('https://'+self.address+'/index.php', myform)
                         result = resp.read()
+			file.close()
                         if(result.lower().find(f) != -1):
                               print "error cannot upload file: " + f
                         else:
