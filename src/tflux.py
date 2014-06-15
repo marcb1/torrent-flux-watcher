@@ -28,7 +28,9 @@ class tflux:
               result = resp.read()
 
               if(result.lower().find('fail') != -1):
-                  print 'Error logging in to torrent flux, password/username error' + self.username + ":" + self.password + "@" + self.address 
+                    print 'Error logging in to torrent flux, check password/username: ' + self.username + ":" + self.password + "@" + self.address 
+                    return False
+              return True
 
     def upload_dir(self,directory):
               os.chdir(directory)
